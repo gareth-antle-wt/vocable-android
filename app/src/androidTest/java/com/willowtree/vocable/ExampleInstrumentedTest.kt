@@ -74,7 +74,6 @@ open class ExampleInstrumentedTest {
             .verifyKeyboardInputScreen()
             .enterUserInput(categoryName)
             .clickOnSaveButton()
-            .clickOnBackButton()
             .verifyCategoriesAndPhrasesMenuDisplayed()
             .verifyNewCategory(categoryName)
             /*.clickOnEditCategoryButton(categoryName)
