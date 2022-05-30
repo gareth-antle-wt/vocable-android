@@ -166,7 +166,7 @@ open class ExampleInstrumentedTest {
         }
 
         fun clickOnEditCategoryButton(categoryName: String): VocableScreenRobot {
-            return clickOnEditCategorySelectButton(R.id.edit_category_select_button, categoryName)
+            return clickOnEditCategorySelectButton(R.id.individual_edit_category_button, categoryName)
         }
 
         fun clickOnRemoveCategoryButton(): VocableScreenRobot {
