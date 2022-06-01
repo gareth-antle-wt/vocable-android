@@ -64,7 +64,7 @@ open class ExampleInstrumentedTest {
     //      4. Should clicks and verifies be grouped together in the screenRobot?
     @Test
     fun testSettingsMenu() {
-        val categoryName = "Test category"
+        val categoryName: String = "Test category"
         withRobot(VocableScreenRobot::class.java)
             .clickOnSettingsButton()
             .verifyCategoriesAndPhrasesButtonDisplayed()
@@ -76,7 +76,7 @@ open class ExampleInstrumentedTest {
             .clickOnSaveButton()
             .verifyCategoriesAndPhrasesMenuDisplayed()
             .verifyNewCategory(categoryName)
-        clearCategories(arrayOf("Test category"))
+        clearCategories(arrayOf(categoryName))
     }
 
     private fun clearCategories(categories: Array<String>) {
