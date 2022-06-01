@@ -2,19 +2,19 @@ package com.willowtree.vocable
 
 import android.app.Instrumentation
 import androidx.lifecycle.Lifecycle
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.internal.runner.listener.InstrumentationRunListener
 import com.willowtree.vocable.ScreenRobot.Companion.withRobot
-import org.junit.After
+import org.junit.*
 
-import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Assert.*
-import org.junit.Before
-import org.junit.Rule
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -76,18 +76,22 @@ open class ExampleInstrumentedTest {
             .clickOnSaveButton()
             .verifyCategoriesAndPhrasesMenuDisplayed()
             .verifyNewCategory(categoryName)
-            /*.clickOnEditCategoryButton(categoryName)
-            .verifyCategoryTitle(categoryName)
-            .verifyRemoveCategoryButton()
-            .clickOnRemoveCategoryButton()
-            .verifyAreYouSureDialogue()
-            .clickOnDialoguePositiveButton()
-            .verifyTextNotPresent(categoryName)*/
+        clearCategories(arrayOf("Test category"))
     }
 
-    @After
-    fun tearDown() {
+    private fun clearCategories(categories: Array<String>) {
+        for (category in categories) {
+            clearCategory(category)
+        }
+    }
 
+    private fun clearCategory(category: String) {
+        Espresso.onView(ViewMatchers.withText(category))
+            .perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.remove_category_button))
+            .perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(R.id.dialog_positive_button))
+            .perform(ViewActions.click())
     }
 
     class VocableScreenRobot : ScreenRobot<VocableScreenRobot>() {
@@ -174,6 +178,10 @@ open class ExampleInstrumentedTest {
 
         fun clickOnDialoguePositiveButton(): VocableScreenRobot {
             return clickOnView(R.id.dialog_positive_button)
+        }
+
+        fun clickOnSettingsCloseButton(): VocableScreenRobot {
+            return clickOnView(R.id.settings_close_button)
         }
 
     }
